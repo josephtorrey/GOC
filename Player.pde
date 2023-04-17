@@ -9,7 +9,7 @@ class Player extends Sprite {
     }
     @Override
     void update() {
-        float speed = 1.2;
+        float speed = 4;
         if (left)  vel.add(new PVector( -speed, 0));
         if (right) vel.add(new PVector(speed, 0));
         if (up)    vel.add(new PVector(0, -speed));
@@ -17,6 +17,11 @@ class Player extends Sprite {
         // update the position by velocity
         pos.add(vel);
         // always try to decelerate
+
+        if(pos.x < 0+ size.x/2) pos.x=size.x/2;
+        if(pos.x> width - size.x/2) pos.x = width - size.x/2;
+        if(pos.y < 0 + size.y/2) pos.y = size.y/2;
+        if(pos.y>  height - size.y/2) pos.y = height - size.y/2;
         vel.mult(0.9);
     }
 
@@ -27,7 +32,7 @@ class Player extends Sprite {
 
     @Override 
     void handleCollision() {
-        
+
     }
     void keyUp() {
         switch(key) { // key is a global value
@@ -51,6 +56,13 @@ class Player extends Sprite {
             case 'D' : right = true; break;
             case 'w':
             case 'W' : up = true; break;
+            case ' ' :
+            case 'f' : fire(); break;
         }
+    }
+
+    void fire() {
+        PVector aim = new PVector(0,-10);
+        _SM.spawn(new Bullet(pos, aim, team));
     }
 }

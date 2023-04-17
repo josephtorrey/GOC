@@ -2,7 +2,7 @@
 class Invader extends Sprite {
     
     // constructor
-    Invader(int x, int y) {
+    Invader(float x, float y) {
         super(x, y, 40, 40);
         vel = new PVector(5, 0); // moving right
     }
